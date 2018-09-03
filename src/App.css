@@ -16,6 +16,8 @@ body {
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  cursor: pointer;
+  user-select: none;
 }
 
 .clock-container {

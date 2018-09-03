@@ -24,6 +24,7 @@ class App extends Component {
     this.getTimer = this.getTimer.bind(this);
     this.countdown = this.countdown.bind(this);
     this.startCountdown = this.startCountdown.bind(this);
+    this.alterLength = this.alterLength.bind(this);
   }
 
   
@@ -34,9 +35,7 @@ class App extends Component {
   incBreak() {
     if (this.state.breakLength < 60) {
       this.setState({
-        breakLength: this.state.breakLength + 1,
-        mins: this.state.breakLength,
-        secs: 0
+        breakLength: this.state.breakLength + 1
       });
     }
   }
@@ -44,9 +43,7 @@ class App extends Component {
   decBreak() {
     if (this.state.breakLength > 1) {
       this.setState({
-        breakLength: this.state.breakLength - 1,
-        mins: this.state.breakLength,
-        secs: 0
+        breakLength: this.state.breakLength - 1
       });
     }
   }
@@ -54,9 +51,7 @@ class App extends Component {
   incSession() {
     if (this.state.sessionLength < 60) {
       this.setState({
-        sessionLength: this.state.sessionLength + 1,
-        mins: this.state.sessionLength,
-        secs: 0
+        sessionLength: this.state.sessionLength + 1
       });
     }
   }
@@ -64,11 +59,24 @@ class App extends Component {
   decSession() {
     if (this.state.sessionLength > 1) {
       this.setState({
-        sessionLength: this.state.sessionLength - 1,
-        mins: this.state.sessionLength,
-        secs: 0
+        sessionLength: this.state.sessionLength - 1
       });
     }
+  }
+
+  //This method will take two args: phase and amt.
+  //
+  alterLength(phase, amt) {
+    let phaseLength = this.state[phase+"Length"];
+    console.log(phaseLength);
+    if ((amt > 0 && phaseLength < 60) || (amt < 0 && phaseLength > 1)) {
+      if (phase === "session") {
+        this.state.sessionState === phase ? this.setState({ sessionLength: this.state.sessionLength+amt, mins: this.state.sessionLength+amt }) : this.setState({sessionLength: this.state.sessionLength+amt});
+      } else {
+        this.state.sessionState === phase ? this.setState({ breakLength: this.state.breakLength+amt, mins: this.state.breakLength+amt }) : this.setState({ breakLength: this.state.breakLength+amt });
+      }
+    }
+
   }
 
   //This method is used to format the current minutes and seconds in the mm:ss format.
@@ -90,7 +98,7 @@ class App extends Component {
 
     //When the timer reaches 0:00, swap the sessionState and set mins to either breakLength or sessionLength, depending on what state we're swapping to.
     if (this.state.secs === 0 && this.state.mins === 0) {
-      this.state.sessionState == "session" ? this.setState({sessionState: "break", mins: this.state.breakLength}) : this.setState({sessionState: "session", mins: this.state.sessionLength}); 
+      this.state.sessionState === "session" ? this.setState({sessionState: "break", mins: this.state.breakLength}) : this.setState({sessionState: "session", mins: this.state.sessionLength}); 
     }
   }
   
@@ -114,8 +122,8 @@ class App extends Component {
         <h3 id="start_stop" onClick={this.startCountdown}>Start/Stop</h3>
         <h3 id="reset">Reset</h3>
         <div className="buttons">
-          <SessionButtons className="session-buttons" sessionLength={this.state.sessionLength} incSession={this.incSession} decSession={this.decSession} />
-          <BreakButtons className="break-buttons" breakLength={this.state.breakLength} incBreak={this.incBreak} decBreak={this.decBreak} />
+          <SessionButtons className="session-buttons" sessionLength={this.state.sessionLength} alterLength={this.alterLength} />
+          <BreakButtons className="break-buttons" breakLength={this.state.breakLength} alterLength={this.alterLength}/>
         </div>
         
       </div>
