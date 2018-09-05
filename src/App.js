@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import SessionButtons from "./SessionButtons.js";
 import BreakButtons from "./BreakButtons.js";
+import wav from "./chime.wav";
 
 let countdownTimer = null;
 
@@ -22,6 +23,7 @@ class App extends Component {
     this.startCountdown = this.startCountdown.bind(this);
     this.alterLength = this.alterLength.bind(this);
     this.displaySessionState = this.displaySessionState.bind(this);
+    this.playBeep = this.playBeep.bind(this);
   }
 
   //This method will take two args: phase and amt.
@@ -59,6 +61,7 @@ class App extends Component {
     //This line must be ahead of the ternary statement in this method if we want the timer to reach 00:00.
     if (this.state.secs === 0 && this.state.mins === 0) {
       this.state.sessionState === "session" ? this.setState({sessionState: "break", mins: this.state.breakLength}) : this.setState({sessionState: "session", mins: this.state.sessionLength}); 
+      this.playBeep();
     }
     //This line runs once per call of countdown() and decrements secs by 1 every time.
     //If secs is zero, it instead sets secs to 59 and decrements mins by 1.
@@ -97,10 +100,17 @@ class App extends Component {
     }
   }
 
+  playBeep() {
+    let sound = document.getElementById("beep");
+    sound.play();
+  }
+
   render() {
     
     return (
+      
       <div className="clock-container">
+      <audio id="beep" src={wav}></audio>
         <h2 id="timer-label">{this.displaySessionState()}</h2>
         <h1 id="time-left">{this.getTimer()}</h1>
         <h3 id="start_stop" onClick={this.startCountdown}>Start/Stop</h3>
