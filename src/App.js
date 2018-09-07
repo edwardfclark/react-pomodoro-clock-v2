@@ -24,6 +24,7 @@ class App extends Component {
     this.alterLength = this.alterLength.bind(this);
     this.displaySessionState = this.displaySessionState.bind(this);
     this.playBeep = this.playBeep.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   //This method will take two args: phase and amt.
@@ -110,6 +111,7 @@ class App extends Component {
     return (
       
       <div className="clock-container">
+      <div id="stem"></div>
       <audio id="beep" src={wav}></audio>
         <h2 id="timer-label">{this.displaySessionState()}</h2>
         <h1 id="time-left">{this.getTimer()}</h1>

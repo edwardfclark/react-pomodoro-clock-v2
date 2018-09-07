@@ -1,3 +1,12 @@
+/* Variable Declarations */
+
+:root {
+  --color-txt: #fff;
+  --color-tomato: #d13834;
+  --color-stem: #88c057;
+}
+
+
 /* Tags */
 
 html, body {
@@ -22,11 +31,39 @@ body {
 
 .clock-container {
   text-align: center;
-  width: 300px;
+  width: 450px;
+  height: 450px;
+  background-color: var(--color-tomato);
+  border-radius: 50%;
+  color: var(--color-txt);
+}
+
+.clock-container > h3 {
+  padding: 0;
+  margin: 0;
 }
 
 /* IDs */
 
 #time-left {
-  color: green;
+  
+}
+
+#timer-label {
+  padding-top: 90px;
+}
+
+#stem {
+  height: 100px;
+  width: 400px;
+  content: "";
+  background-color: var(--color-stem);
+  z-index: 100;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -34px;
+  left: 0;
+  right: 0;
+  clip-path: polygon(45% 0, 55% 0, 55% 35%, 100% 35%, 50% 100%, 0 35%, 45% 35%);
 }
