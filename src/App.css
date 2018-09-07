@@ -1,11 +1,14 @@
-/* Variable Declarations */
+/* Imports & Variable Declarations */
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Press+Start+2P');
 
 :root {
   --color-txt: #fff;
   --color-tomato: #d13834;
   --color-stem: #88c057;
+  --font-timer: "Press Start 2P", cursive;
+  --font-labels: "Josefin Sans", sans-serif;
 }
-
 
 /* Tags */
 
@@ -18,6 +21,10 @@ body {
   display: flex;
   align-items:center;
   justify-content: center;
+}
+
+h4 {
+  margin: 5px 0 0 0;
 }
 
 /* Classes */
@@ -36,21 +43,33 @@ body {
   background-color: var(--color-tomato);
   border-radius: 50%;
   color: var(--color-txt);
+  
 }
 
 .clock-container > h3 {
   padding: 0;
   margin: 0;
+  
+}
+
+.icon {
+  cursor: pointer;
 }
 
 /* IDs */
 
 #time-left {
-  
+  font-size: 70px;
+  margin: 0;
+  font-family: var(--font-timer);
+  padding: 20px 0 20px 0;
 }
 
 #timer-label {
-  padding-top: 90px;
+  padding-top: 100px;
+  margin: 0;
+  font-size: 35px;
+  font-family: var(--font-labels);
 }
 
 #stem {
@@ -66,4 +85,28 @@ body {
   left: 0;
   right: 0;
   clip-path: polygon(45% 0, 55% 0, 55% 35%, 100% 35%, 50% 100%, 0 35%, 45% 35%);
+}
+
+#start-stop-reset {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#start_stop > h3, #reset > h3 {
+  margin: 0;
+}
+
+#start_stop {
+  text-align: right;
+  padding-right: 10px;
+}
+
+#session-label, #break-label {
+  margin: 10px 0 0 0;
+  font-family: var(--font-labels);
+}
+
+#reset {
+  text-align: left;
+  padding-left: 10px;
 }

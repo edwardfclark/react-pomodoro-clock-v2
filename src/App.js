@@ -87,7 +87,7 @@ class App extends Component {
 
   //This method resets the entire app, returning everything to its default state and stopping the timer if the timer is running.
   reset() {
-    if (countdownTimer !== null) {
+    if (countdownTimer !== null || this.state.sessionState != "session" || this.state.mins != 25) {
       clearInterval(countdownTimer);
       countdownTimer = null;
       this.setState({
@@ -113,10 +113,12 @@ class App extends Component {
       <div className="clock-container">
       <div id="stem"></div>
       <audio id="beep" src={wav}></audio>
-        <h2 id="timer-label">{this.displaySessionState()}</h2>
+        <h2 id="timer-label">{this.displaySessionState()+":"}</h2>
         <h1 id="time-left">{this.getTimer()}</h1>
-        <h3 id="start_stop" onClick={this.startCountdown}>Start/Stop</h3>
-        <h3 id="reset" onClick={() => this.reset()}>Reset</h3>
+        <div id="start-stop-reset">
+          <div id="start_stop"><h3><i className="fas fa-play icon" onClick={this.startCountdown}><i className="fas fa-pause"></i></i></h3></div>
+          <div id="reset"><h3><i className="fas fa-redo-alt icon" onClick={() => this.reset()}></i></h3></div>
+        </div>
         <div className="buttons">
           <SessionButtons className="session-buttons" sessionLength={this.state.sessionLength} alterLength={this.alterLength} />
           <BreakButtons className="break-buttons" breakLength={this.state.breakLength} alterLength={this.alterLength}/>
